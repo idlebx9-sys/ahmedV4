@@ -1,0 +1,21 @@
+{
+  "name": "uns-ahmad",
+  "version": "18.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "test:unit": "node tests/core-audio.test.cjs && node tests/ai-function.test.mjs",
+    "test:browser": "node tests/browser.test.cjs",
+    "test:cinema": "node tests/cinema.test.cjs",
+    "test": "npm run test:unit && npm run test:browser && npm run test:cinema && npm run test:home && npm run test:sections && npm run test:quran && npm run test:sw",
+    "test:home": "node tests/home.test.cjs",
+    "test:sections": "node tests/sections.test.cjs",
+    "test:quran": "node tests/quran.test.cjs",
+    "test:sw": "node tests/sw.test.cjs"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "ws": "^8.18.0"
+  }
+}

@@ -1,0 +1,77 @@
+# ══════════════════════════════════════════════════════
+#  أُنس أحمد V18 — إعدادات Netlify
+#  لا يوجد أمر بناء. دالة المساعد الذكي في netlify/functions/chat.js
+# ══════════════════════════════════════════════════════
+[build]
+  publish = "."
+  command = ""
+
+[functions]
+  directory = "netlify/functions"
+
+# ملفات لا يجب أن تُقدَّم للزوار (خادم Nabr المحلي، الإعدادات، الاختبارات، كود الدالة)
+[[redirects]]
+  from = "/server.js"
+  to = "/index.html"
+  status = 404
+  force = true
+[[redirects]]
+  from = "/package.json"
+  to = "/index.html"
+  status = 404
+  force = true
+[[redirects]]
+  from = "/.env*"
+  to = "/index.html"
+  status = 404
+  force = true
+[[redirects]]
+  from = "/tests/*"
+  to = "/index.html"
+  status = 404
+  force = true
+[[redirects]]
+  from = "/netlify/*"
+  to = "/index.html"
+  status = 404
+  force = true
+[[redirects]]
+  from = "/docs/*"
+  to = "/index.html"
+  status = 404
+  force = true
+
+# HTML و Service Worker: يُعاد التحقق منهما دائماً حتى تظهر التحديثات فوراً
+[[headers]]
+  for = "/index.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+[[headers]]
+  for = "/sw.js"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+[[headers]]
+  for = "/manifest.json"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "microphone=(self), camera=(), geolocation=()"
+
+# JS/CSS غير مبصومة بأسماء ⇒ كاش قصير مع إعادة تحقق (الـ Service Worker يعتمد الشبكة أولاً أيضاً)
+[[headers]]
+  for = "/css/*"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+[[headers]]
+  for = "/js/*"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
