@@ -1,0 +1,160 @@
+/* ══════════════════════════════════════════════════════════════
+   أُنس أحمد V18 — الطبقة السينمائية (أسود + زمردي + إضاءة هادئة)
+   تُحمَّل أخيراً عمداً: تُوحّد الهوية فوق الطبقات القديمة دون المساس بالمنطق.
+   لا تُخفي هذه الطبقة أي محتوى إذا تعطّل JavaScript.
+   ══════════════════════════════════════════════════════════════ */
+/* الألوان والمتغيرات المركزية: css/design-system.css */
+
+html, html body { background: var(--ds-black) !important; }
+html body { color: var(--ds-ivory) !important; }
+::selection { background: rgba(47, 191, 143, .35); color: #fff; }
+html body :focus-visible { outline: 2px solid var(--ds-em-300) !important; outline-offset: 3px; }
+
+/* ───────── الإضاءة المحيطة: ضوء رئيسي هادئ + عتمة الأطراف + حُبيبات خفيفة ───────── */
+.cine-ambient {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
+  background:
+    radial-gradient(120% 78% at 50% -12%, rgba(18, 92, 68, .5), transparent 64%),
+    radial-gradient(80% 60% at 100% 100%, rgba(7, 36, 26, .55), transparent 62%),
+    var(--ds-black);
+}
+.cine-ambient::before {                                    /* الضوء الرئيسي المتحرك ببطء */
+  content: ""; position: absolute; left: 50%; top: -42vmax; width: 80vmax; height: 80vmax; margin-left: -40vmax;
+  background: radial-gradient(closest-side, rgba(47, 191, 143, .15), transparent 70%);
+  transform: translate3d(var(--cine-lx, 0px), var(--cine-ly, 0px), 0);
+  animation: cineDrift 30s ease-in-out infinite alternate;
+}
+.cine-ambient::after {                                     /* عتمة الأطراف (Vignette) */
+  content: ""; position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 50% 45%, transparent 52%, rgba(0, 0, 0, .7) 100%);
+}
+.cine-grain {
+  position: absolute; inset: -50%; opacity: .05; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: cineGrain 1.4s steps(4) infinite;
+}
+@keyframes cineDrift { from { transform: translate3d(calc(var(--cine-lx, 0px) - 6vmax), var(--cine-ly, 0px), 0); } to { transform: translate3d(calc(var(--cine-lx, 0px) + 6vmax), calc(var(--cine-ly, 0px) + 3vmax), 0); } }
+@keyframes cineGrain { 0% { transform: translate(0, 0); } 25% { transform: translate(-3%, 2%); } 50% { transform: translate(2%, -3%); } 75% { transform: translate(-2%, -2%); } 100% { transform: translate(3%, 3%); } }
+
+/* ───────── الهيدر والتنقل ───────── */
+html body #site-header, html body .site-header {
+  background: rgba(4, 6, 5, .74) !important; border-bottom: 1px solid var(--ds-line) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(1.2); backdrop-filter: blur(16px) saturate(1.2);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, .45) !important;
+}
+html body .brand-name { color: var(--ds-ivory) !important; }
+html body .brand-orn { color: var(--ds-gold) !important; }
+html body .nav-link { color: var(--ds-mute) !important; }
+html body .nav-link:hover { color: var(--ds-ivory) !important; background: rgba(111, 201, 163, .07) !important; }
+html body .nav-link.is-active, html body .nav-link.active {
+  color: #e6f6ee !important; background: rgba(31, 122, 90, .2) !important;
+  box-shadow: inset 0 0 0 1px rgba(111, 201, 163, .24) !important; border-color: transparent !important;
+}
+html body .mobile-bottom-nav { background: rgba(4, 6, 5, .88) !important; border-top: 1px solid var(--ds-line) !important; -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); }
+html body .mobile-nav-link { color: var(--ds-mute) !important; }
+html body .mobile-nav-link.is-current, html body .mobile-nav-link:focus-visible { color: var(--ds-em-300) !important; }
+
+/* ───────── المشهد الافتتاحي (Hero) ───────── */
+html body .hero {
+  background: radial-gradient(90% 55% at 50% 0%, rgba(31, 122, 90, .2), transparent 72%), linear-gradient(165deg, rgba(13, 24, 19, .78), rgba(4, 6, 5, .92) 74%) !important;
+  border: 1px solid var(--ds-line) !important;
+  box-shadow: 0 34px 100px rgba(0, 0, 0, .6), inset 0 1px 0 rgba(255, 255, 255, .04), inset 0 -80px 120px -60px rgba(0, 0, 0, .65) !important;
+}
+html body .hero-title { color: var(--ds-ivory) !important; text-shadow: 0 0 46px rgba(47, 191, 143, .2), 0 2px 0 rgba(0, 0, 0, .5); }
+html body .hero-sub { color: var(--ds-mute) !important; }
+html body .hero-orb {
+  background: radial-gradient(circle at 35% 30%, #1d6a50, #0a2a1f 62%, #050b08) !important;
+  border: 1px solid var(--ds-line-hi) !important;
+  box-shadow: 0 0 60px rgba(47, 191, 143, .22), inset 0 0 28px rgba(0, 0, 0, .5) !important;
+  animation: cineBreath 7s ease-in-out infinite;
+}
+html body .hero-orb i { color: #bfe9d6 !important; }
+@keyframes cineBreath { 0%, 100% { box-shadow: 0 0 46px rgba(47, 191, 143, .16), inset 0 0 28px rgba(0, 0, 0, .5); } 50% { box-shadow: 0 0 84px rgba(47, 191, 143, .3), inset 0 0 28px rgba(0, 0, 0, .5); } }
+
+/* ───────── الأزرار: أساسي زمردي، ثانوي زجاجي بخط رفيع ───────── */
+html body .btn-light, html body .hero .btn-light, html body .play-btn {
+  background: linear-gradient(135deg, #1a6b4f, #0d3f2e) !important; color: var(--ds-ivory) !important;
+  border: 1px solid rgba(143, 214, 181, .34) !important;
+  box-shadow: 0 10px 30px rgba(7, 36, 26, .7), 0 0 26px rgba(47, 191, 143, .12), inset 0 1px 0 rgba(255, 255, 255, .12) !important;
+}
+html body .btn-light:hover, html body .hero .btn-light:hover, html body .play-btn:hover { box-shadow: 0 12px 34px rgba(7, 36, 26, .8), 0 0 40px rgba(47, 191, 143, .26), inset 0 1px 0 rgba(255, 255, 255, .16) !important; }
+html body .btn-glass, html body .hero .btn-glass, html body .icon-btn {
+  background: rgba(241, 239, 230, .035) !important; color: var(--ds-ivory) !important;
+  border: 1px solid rgba(241, 239, 230, .14) !important; box-shadow: none !important;
+}
+html body .btn-glass:hover, html body .hero .btn-glass:hover, html body .icon-btn:hover { background: rgba(111, 201, 163, .09) !important; border-color: var(--ds-line-hi) !important; }
+html body .feature-select, html body .feature-textarea, html body select, html body textarea, html body input:not([type="checkbox"]):not([type="radio"]) {
+  background-color: rgba(8, 13, 10, .82) !important; border-color: rgba(111, 201, 163, .2) !important; color: var(--ds-ivory) !important;
+}
+
+/* ───────── البطاقات ───────── */
+html body .glass-lg:not(.feature-modal-card), html body .cat-card, html body .feature-card, html body .about-card, html body .recitation-page-hero,
+html body .daily-ayah, html body .daily-plan {
+  background: linear-gradient(162deg, rgba(16, 24, 19, .8), rgba(8, 12, 10, .84)) !important;
+  border: 1px solid var(--ds-line) !important;
+  box-shadow: 0 18px 54px rgba(0, 0, 0, .42), inset 0 1px 0 rgba(255, 255, 255, .035) !important;
+}
+html body .feature-eyebrow, html body .section-kicker, html body .eyebrow { color: var(--ds-gold) !important; }
+html body .section-title { color: var(--ds-ivory) !important; }
+html body .muted { color: var(--ds-mute) !important; }
+
+/* ───────── المشغّل ───────── */
+html body .player {
+  background: rgba(6, 10, 8, .9) !important; border: 1px solid var(--ds-line) !important;
+  box-shadow: 0 -12px 56px rgba(0, 0, 0, .65), 0 0 44px rgba(47, 191, 143, .06) !important;
+  -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px);
+}
+html body .seek-fill { background: linear-gradient(90deg, var(--ds-em-500), var(--ds-em-300)) !important; }
+
+/* ───────── ظهور ناعم عند التمرير (يُفعَّل من JS فقط) ───────── */
+.cine-reveal { opacity: 0; transform: translateY(18px); transition: opacity .9s var(--ds-ease), transform .9s var(--ds-ease); }
+.cine-reveal.cine-in { opacity: 1; transform: none; }
+
+/* ───────── أدوات القرآن الجديدة: مؤقت النوم ووضع التأمل ───────── */
+#cine-sleep-left:empty { display: none; }
+#cine-sleep-left { font-size: .85rem; align-self: center; }
+.cine-hud {
+  position: fixed; top: max(12px, env(safe-area-inset-top)); left: 12px; z-index: 1200;
+  display: flex; gap: 8px; align-items: center; padding: 8px;
+  background: rgba(4, 6, 5, .72); border: 1px solid var(--ds-line); border-radius: 16px;
+  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+}
+.cine-hud[hidden] { display: none !important; }
+.cine-hud button { min-width: 44px; min-height: 44px; border-radius: 12px; border: 1px solid rgba(241, 239, 230, .14); background: rgba(241, 239, 230, .04); color: var(--ds-ivory); font: inherit; cursor: pointer; }
+.cine-hud button:hover { background: rgba(111, 201, 163, .12); border-color: var(--ds-line-hi); }
+
+/* وضع التأمل: تُطفأ الإضاءة عن كل شيء عدا الآية الجارية */
+body.cine-focus .site-header, body.cine-focus .mobile-bottom-nav, body.cine-focus .site-footer,
+body.cine-focus #quran-toolbar, body.cine-focus #back-to-list, body.cine-focus #reciter-current-label { display: none !important; }
+body.cine-focus #surah-heading, body.cine-focus #surah-meta { opacity: .7; }
+body.cine-focus .ayah-text, body.cine-focus .quran-word { font-size: calc(var(--cine-fs, 1) * clamp(1.7rem, 4.4vw, 2.7rem)) !important; line-height: 2.35 !important; }
+body.cine-focus .ayah { transition: opacity .7s var(--ds-ease), background .7s var(--ds-ease); }
+body.cine-focus.cine-playing .ayah:not(.is-playing) { opacity: .32; }
+body.cine-focus .ayah.is-playing { opacity: 1; background: radial-gradient(ellipse at center, rgba(47, 191, 143, .1), transparent 70%) !important; }
+body.cine-focus .cine-ambient::before { opacity: .55; }
+
+/* ───────── هواتف: أخفّ في الحُبيبات والحركة ───────── */
+@media (max-width: 640px) {
+  .cine-grain { opacity: .035; animation: none; }
+  .cine-ambient::before { animation-duration: 44s; }
+}
+
+/* ───────── من يفضّل تقليل الحركة ───────── */
+@media (prefers-reduced-motion: reduce) {
+  .cine-ambient::before, .cine-grain, html body .hero-orb { animation: none !important; }
+  .cine-reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+  body.cine-focus .ayah { transition: none; }
+}
+
+/* حقل البحث داخل صندوق زجاجي: لا إطار مزدوج */
+html body .search-box input { background: transparent !important; border: 0 !important; box-shadow: none !important; }
+
+/* بطاقة الإهداء على الهاتف: كانت أعرض من حاويتها فتخرج عن الحافة (خلل سابق في V18).
+   لا نغيّر محتواها ولا ألوانها، فقط ألّا تتجاوز عرض الحاوية. */
+@media (max-width: 700px) {
+  html body .loader-inner > .memorial-card, html body .memorial-card { width: 100% !important; max-width: 100% !important; margin-inline: 0 !important; box-sizing: border-box; }
+}
+
+/* المساعد: حقل الكتابة داخل كبسولة (لا إطار مزدوج) وزر إرسال بهوية زمردية */
+html body #ai-input { background: transparent !important; border: 0 !important; box-shadow: none !important; }
+html body .send-btn { background: linear-gradient(135deg, #1a6b4f, #0d3f2e) !important; color: var(--ds-ivory) !important; border: 1px solid rgba(143, 214, 181, .34) !important; box-shadow: 0 0 22px rgba(47, 191, 143, .16) !important; }

@@ -1,0 +1,21 @@
+/* V18 — إصلاحات محددة فوق الطبقات السابقة (لا نحذف شيئاً سليماً) */
+.main-nav{box-sizing:border-box;max-width:100%}                 /* كان يتجاوز عرض الهاتف 11px ويسبّب تمريراً أفقياً */
+.ayah{cursor:pointer}
+.ayah:focus-visible{outline:2px solid var(--gold,var(--ds-gold));outline-offset:3px;border-radius:12px}
+.ayah.no-audio{opacity:.72}
+.ayah.no-audio .ayah-num::after{content:"🔇";font-size:.7em;margin-inline-start:4px}
+.surah-info i.fa-circle-check{color:var(--emerald,#2fbf8f);font-size:.85em;margin-inline-start:2px}
+.quran-source-note{font-size:.9rem;opacity:.85}
+/* القائمة المنسدلة على الهاتف: width:100% القادمة من طبقة سابقة تجعلها أعرض من الشاشة؛ نترك left/right تحدّد العرض */
+@media(max-width:820px){.main-nav{width:auto!important;max-width:calc(100% - 24px)}}
+/* المساعد الذكي V18 */
+.ai-tools{display:flex;align-items:center;gap:8px;margin-inline-start:auto;margin-inline-end:8px}
+.ai-save{font-size:.78rem;opacity:.85;display:flex;align-items:center;gap:4px;cursor:pointer;white-space:nowrap}
+.ai-suggestions{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.ai-chip{border:1px solid rgba(212,175,55,.35);background:rgba(255,255,255,.04);color:inherit;border-radius:999px;padding:8px 14px;font:inherit;font-size:.85rem;cursor:pointer;min-height:40px}
+.ai-chip:hover,.ai-chip:focus-visible{border-color:rgba(212,175,55,.8)}
+.bubble .bubble-text{white-space:pre-wrap;overflow-wrap:anywhere}
+.bubble-sources{margin-top:8px;font-size:.8rem;opacity:.9;overflow-wrap:anywhere}
+.bubble-sources a{color:inherit;text-decoration:underline}
+.bubble-copy{margin-top:8px;border:0;background:transparent;color:inherit;opacity:.65;font:inherit;font-size:.78rem;cursor:pointer;padding:6px 0;min-height:32px}
+.bubble-note{opacity:.9;border-style:dashed}
